@@ -1,6 +1,6 @@
 import * as icons from "./iconData";
 
-type GetIconProps = {
+export type GetIconProps = {
   type: keyof typeof icons;
   className?: any;
   style?: any;

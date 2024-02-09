@@ -1,0 +1,73 @@
+@use "../color" as *;
+@use "../media" as res;
+
+.navbar {
+  width: 100%;
+
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+
+    .logo {
+      position: relative;
+      height: 100%;
+      width: 70px;
+
+      img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .menuitem {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 6px;
+    margin-bottom: 16px;
+
+    .menutitle {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: capitalize;
+      //   color: #484f6c;
+      color: $white;
+      padding: 4px 12px;
+    }
+
+    .menubutton {
+      border: none;
+      border-radius: 3px;
+      text-align: left;
+      padding: 4px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: $white;
+      background: transparent;
+
+      .buttonlabel {
+        color: $white;
+        text-transform: capitalize;
+        font-weight: 600;
+        margin-inline-start: 4px;
+        // font-family: "Bebas Neue", sans-serif;
+      }
+
+      &-active {
+        @extend .menubutton;
+        color: $background;
+        background: #2e73c2;
+
+        .buttonlabel {
+          color: $background;
+          text-transform: capitalize;
+          font-family: "Poppins";
+        }
+      }
+    }
+  }
+}
