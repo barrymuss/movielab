@@ -1,0 +1,26 @@
+@use "../color" as *;
+@use "../media" as res;
+
+.poster-card {
+  overflow: hidden;
+
+  .section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative;
+  }
+
+  img {
+    width: 120px;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: width 0.8s ease-in-out;
+
+    &:hover {
+      width: 500px;
+    }
+  }
+}

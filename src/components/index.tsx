@@ -9,3 +9,6 @@ export { default as Grid } from "./grid";
 export { default as Image } from "./image";
 export { default as Input } from "./forms/input";
 export { default as Tooltip } from "./tooltip";
+
+export { default as Card } from "./card";
+export { default as PosterCard } from "./card/posterCard";
