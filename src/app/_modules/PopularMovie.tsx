@@ -5,32 +5,32 @@ import { Grid, Card, PosterCard } from "@/components";
 // import { Card } from "antd";
 
 export default function PopularMovie() {
-  const [app, setApp] = useReducer((next: any, prev: any) => ({ ...next, ...prev }), {
-    page: 1,
-    span: 6,
-    movieData: [],
-  });
-  const getPopularMovie = usetrpc.movieList.popular.useQuery({ page: app.page });
+	const [app, setApp] = useReducer((next: any, prev: any) => ({ ...next, ...prev }), {
+		page: 1,
+		span: 6,
+		movieData: [],
+	});
+	const getPopularMovie = usetrpc.movieList.popular.useQuery({ page: app.page });
 
-  const data = useMemo(() => {
-    const datas = getPopularMovie.data as any;
-    let arrMovie: any[] = [];
+	const data = useMemo(() => {
+		const datas = getPopularMovie.data as any;
+		let arrMovie: any[] = [];
 
-    datas?.results.map((item: any) => {
-      arrMovie.push(item);
-    });
+		datas?.results.map((item: any) => {
+			arrMovie.push(item);
+		});
 
-    setApp({ movieData: arrMovie.splice(0, 7) });
-  }, [getPopularMovie.data]);
+		setApp({ movieData: arrMovie.splice(0, 7) });
+	}, [getPopularMovie.data]);
 
-  const handleClick = () => {
-    setApp({ span: 8 });
-  };
+	const handleClick = () => {
+		setApp({ span: 8 });
+	};
 
-  return (
-    <Grid>
-      <Grid.Col>{/* <PosterCard data={app.movieData} /> */}</Grid.Col>
-      {/* {app.movieData?.map((movie: any) => {
+	return (
+		<Grid>
+			<Grid.Col>{/* <PosterCard data={app.movieData} /> */}</Grid.Col>
+			{/* {app.movieData?.map((movie: any) => {
         return (
           <Grid.Col
             span={6}
@@ -51,6 +51,6 @@ export default function PopularMovie() {
           </Grid.Col>
         );
       })} */}
-    </Grid>
-  );
+		</Grid>
+	);
 }

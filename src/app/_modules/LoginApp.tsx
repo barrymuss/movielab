@@ -1,5 +1,5 @@
 "use client";
 
 export default function LoginApp() {
-	return <div>LoginApp</div>;
+  return <div>LoginApp</div>;
 }
