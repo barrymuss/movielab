@@ -10,6 +10,7 @@ const Button = ({ children, ...props }: ButtonProps, { icons }: ButtonIconProps)
   return (
     <Buttons
       type={props.type}
+      className={props.className}
       {...props}>
       {children}
     </Buttons>

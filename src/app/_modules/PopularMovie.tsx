@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useReducer } from "react";
-import { trpc } from "../_trpc/client";
+import { usetrpc } from "@/useTRPC";
 import { Grid, Card, PosterCard } from "@/components";
 // import { Card } from "antd";
 
@@ -10,7 +10,7 @@ export default function PopularMovie() {
     span: 6,
     movieData: [],
   });
-  const getPopularMovie = trpc.movieList.popular.useQuery({ page: app.page });
+  const getPopularMovie = usetrpc.movieList.popular.useQuery({ page: app.page });
 
   const data = useMemo(() => {
     const datas = getPopularMovie.data as any;
@@ -29,9 +29,7 @@ export default function PopularMovie() {
 
   return (
     <Grid>
-      <Grid.Col>
-        <PosterCard data={app.movieData} />
-      </Grid.Col>
+      <Grid.Col>{/* <PosterCard data={app.movieData} /> */}</Grid.Col>
       {/* {app.movieData?.map((movie: any) => {
         return (
           <Grid.Col

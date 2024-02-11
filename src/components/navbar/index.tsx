@@ -19,6 +19,7 @@ export default function Navbar({ data }: Navbar) {
             objectFit={"contain"}
             width={100}
             height={50}
+            priority
           />
         </div>
       </div>
@@ -31,16 +32,13 @@ export default function Navbar({ data }: Navbar) {
             <Button
               key={ix}
               className={style["menubutton"]}
-              type='text'
               icon={
                 <Icon
+                  className={style["menubutton-icon"]}
                   type={btn.icon}
-                  color='ff3131'
-                  size={15}
                 />
-              }>
-              <span className={style["buttonlabel"]}>{btn.label}</span>
-            </Button>
+              }
+            />
           ))}
         </div>
       ))}

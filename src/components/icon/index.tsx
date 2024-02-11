@@ -10,14 +10,16 @@ export type GetIconProps = {
   onClick?: any;
 };
 
-export default function Icon({ type, className, style, size, color, twoToneColor, onClick }: GetIconProps) {
+const Icon = ({ type, className, style, size, color, twoToneColor, onClick }: GetIconProps) => {
   const Component = icons[type];
   return (
     <Component
-      className={`${className}`}
+      className={className}
       style={{ fontSize: `${size}px`, color: `#${color}`, ...style }}
       twoToneColor={`#${twoToneColor}`}
       onClick={onClick}
     />
   );
-}
+};
+
+export default Icon;

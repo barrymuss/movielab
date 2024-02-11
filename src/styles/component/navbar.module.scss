@@ -27,8 +27,10 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    row-gap: 6px;
-    margin-bottom: 16px;
+    align-items: center;
+    row-gap: 12px;
+    padding: 0 12px;
+    margin: 12px 0;
 
     .menutitle {
       font-size: 13px;
@@ -41,33 +43,42 @@
 
     .menubutton {
       border: none;
-      border-radius: 3px;
-      text-align: left;
-      padding: 4px 12px;
+      border-radius: 6px;
       font-size: 14px;
       font-weight: 600;
+      padding: 8px 12px;
+      width: auto;
+      height: auto;
       color: $white;
-      background: transparent;
+      background: color(menu, light);
+
+      .menubutton-icon {
+        font-size: 16px;
+        color: #ff3131;
+      }
 
       .buttonlabel {
         color: $white;
         text-transform: capitalize;
         font-weight: 600;
         margin-inline-start: 4px;
-        // font-family: "Bebas Neue", sans-serif;
       }
 
-      &-active {
-        @extend .menubutton;
-        color: $background;
-        background: #2e73c2;
-
-        .buttonlabel {
-          color: $background;
-          text-transform: capitalize;
-          font-family: "Poppins";
-        }
+      &:hover {
+        background: color(menu, base);
       }
+
+      // &-active {
+      //   @extend .menubutton;
+      //   color: $background;
+      //   background: #2e73c2;
+
+      //   .buttonlabel {
+      //     color: $background;
+      //     text-transform: capitalize;
+      //     font-family: "Poppins";
+      //   }
+      // }
     }
   }
 }

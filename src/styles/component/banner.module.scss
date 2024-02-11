@@ -1,0 +1,141 @@
+@use "../color" as *;
+@use "../media" as res;
+
+.banner {
+  border: none;
+  border-radius: 15px;
+
+  .carousel-item {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 15px;
+    margin: 0;
+    height: 60vh;
+    width: 100%;
+    overflow: hidden;
+
+    @include res.media(tablet) {
+      height: 400px;
+    }
+
+    @include res.media(desktop) {
+      height: 400px;
+    }
+
+    .image {
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+
+      img {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+        filter: contrast(100%) brightness(90%) grayscale(10%);
+      }
+    }
+
+    .overlay {
+      z-index: 1;
+      width: 100%;
+
+      .inner-overlay {
+        width: 100%;
+        // display: flex;
+        // align-items: center;
+        // flex-direction: column;
+
+        .title-overlay {
+          padding: 12px 24px;
+          margin-bottom: 34px;
+
+          .genre {
+            display: flex;
+            align-items: center;
+
+            .genre-tag {
+              background: rgba($color: $red, $alpha: 1);
+              font-weight: 600;
+              color: $white;
+              padding: 4px 8px;
+              text-shadow: 2px 2px 4px $black;
+              font-size: 13px;
+              border-radius: 3px;
+            }
+          }
+
+          .title {
+            // font-family: "Bebas Neue", sans-serif;
+            // font-size: max(50px, 30px);
+            color: wheat;
+            text-shadow: 2px 2px 4px $black;
+          }
+
+          .overview {
+            color: $white;
+            text-shadow: 2px 2px 4px $black;
+            // margin: 0;
+            text-transform: capitalize;
+            max-width: 80%;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            margin: 16px 0;
+
+            @include res.media(tablet) {
+              max-width: 100%;
+            }
+          }
+
+          .buttons {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .btn-overlay {
+              border: none;
+              border-radius: 3px;
+              min-width: 120px;
+              font-weight: 600;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              &.btn-play {
+                background: rgba($color: color(red, base), $alpha: 1);
+                color: $white;
+                text-shadow: 2px 2px 4px $black;
+
+                .play-icon {
+                  color: $white;
+                }
+              }
+            }
+          }
+        }
+
+        .info {
+          width: 100%;
+          padding: 8px 24px;
+          border-radius: 0 0 10px 10px;
+          display: flex;
+          align-items: center;
+          background: linear-gradient(0deg, rgba(255, 255, 255, 0.12) 15%, rgba(255, 255, 255, 0.1) 60%);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(3.9px);
+          -webkit-backdrop-filter: blur(3.9px);
+        }
+      }
+    }
+  }
+}

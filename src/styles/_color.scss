@@ -7,8 +7,14 @@ $red: #ff3131;
 $yellow: #ffe66d;
 $orange: #ff931e;
 $border: #495867;
+$menu: #17191c;
 
 $colors: (
+  menu: (
+    base: $menu,
+    light: lighten($menu, 8%),
+    dark: darken($menu, 15%),
+  ),
   black: (
     base: $black,
     light: #44525f,
@@ -32,7 +38,7 @@ $colors: (
   red: (
     base: $red,
     light: lighten($red, 15%),
-    dark: darken($red, 15%),
+    dark: darken($red, 20%),
   ),
   green: (
     base: $green,

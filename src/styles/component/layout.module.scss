@@ -11,20 +11,22 @@
   grid-template-areas:
     "nav header"
     "nav content";
-  row-gap: 1px;
-  column-gap: 1px;
+  row-gap: 0px;
+  column-gap: 0px;
 
   .layout-header {
     grid-area: header;
     padding: 12px;
     background: $black;
+    border-bottom: 2px solid rgba($color: color(menu, light), $alpha: 1);
   }
 
   .layout-nav {
     grid-area: nav;
-    max-width: 120px;
-    min-width: 120px;
+    max-width: 90px;
+    min-width: 90px;
     background: $black;
+    border-right: 2px solid rgba($color: color(menu, light), $alpha: 1);
   }
 
   .layout-content {

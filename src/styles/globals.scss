@@ -13,3 +13,18 @@ body {
   color: $white;
   overflow-y: hidden;
 }
+
+.slick-list,
+.slick-slide,
+.slick-active,
+.slick-current {
+  border-radius: 15px;
+}
+
+.slick-dots {
+  opacity: 1;
+
+  .slick-active button {
+    background: $red !important;
+  }
+}

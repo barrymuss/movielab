@@ -24,7 +24,8 @@
       "@/hooks": ["./src/server/hooks/index.ts"],
       "@/components/*": ["./src/components/*"],
       "@/modules": ["./src/app/_modules/index.tsx"],
-      "@/assets/*": ["./src/assets/*"]
+      "@/assets/*": ["./src/assets/*"],
+      "@/useTRPC": ["./src/app/_trpc/client.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

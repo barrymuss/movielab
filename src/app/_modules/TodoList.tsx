@@ -1,13 +1,13 @@
 "use client";
 
-import { trpc } from "../_trpc/client";
+import { usetrpc } from "@/useTRPC";
 
 export default function TodoList() {
-	const getTodos = trpc.getTodos.getTodos.useQuery();
+  const getTodos = usetrpc.getTodos.getTodos.useQuery();
 
-	return (
-		<div>
-			<div>{JSON.stringify(getTodos.data)}</div>
-		</div>
-	);
+  return (
+    <div>
+      <div>{JSON.stringify(getTodos.data)}</div>
+    </div>
+  );
 }
