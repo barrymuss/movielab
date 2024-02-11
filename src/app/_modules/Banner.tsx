@@ -2,7 +2,7 @@
 
 import { useReducer, useMemo } from "react";
 import { usetrpc } from "@/useTRPC";
-import { Carousel, Tag, Image } from "antd";
+import { Carousel, Tag } from "antd";
 
 import style from "@/styles/component/banner.module.scss";
 import { Button, Icon } from "@/components";
@@ -20,12 +20,17 @@ const Banner = () => {
   useMemo(() => {
     const datas = getPopularMovie.data as any;
     let arrMovie: any[] = [];
+    let arrGenre: any[] = [];
 
     datas?.results.map((item: any) => {
       arrMovie.push(item);
     });
 
-    setApp({ movieData: arrMovie.splice(0, 5), genre: getGenre.data?.genres });
+    getGenre.data?.genres.map((item: any) => {
+      arrGenre.push(item);
+    });
+
+    setApp({ movieData: arrMovie.splice(0, 5), genre: arrGenre });
   }, [getPopularMovie.data]);
 
   const onChange = (currentSlide: any) => {
@@ -38,7 +43,8 @@ const Banner = () => {
       autoplay
       autoplaySpeed={10000}
       effect='fade'
-      easing='ease'>
+      easing='ease'
+      dotPosition='right'>
       {app.movieData.map((item: any) => {
         return (
           <div
