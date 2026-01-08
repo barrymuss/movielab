@@ -2,19 +2,22 @@
 import { cookies } from "next/headers";
 
 export async function setCookies(data: string) {
-	cookies().set("Token", data);
+	const cookieStore = await cookies();
+	cookieStore.set("Token", data);
 }
 
 export async function hasCookies(data: any) {
-	cookies().has(data);
+	const cookieStore = await cookies();
+	return cookieStore.has(data);
 }
 
 export async function getCookies(data: string) {
-	const cookieStore = cookies();
+	const cookieStore = await cookies();
 	const token = cookieStore.get(data);
 	return token;
 }
 
 export async function deleteCookies(data: string) {
-	cookies().delete(data);
+	const cookieStore = await cookies();
+	cookieStore.delete(data);
 }

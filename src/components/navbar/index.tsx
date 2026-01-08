@@ -1,44 +1,62 @@
 "use client";
 
-import { useState } from "react";
-import style from "@/styles/component/navbar.module.scss";
-import { Image, Button, Icon } from "..";
+import { Button } from "@/components/ui/button";
+import { Icon, IconType } from "@/components/ui/icon";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 import Logo from "@/assets/Layer1.png";
 
-type Navbar = {
-  data?: any[];
+type NavbarProps = {
+  data?: Array<{
+    title?: string;
+    menu: Array<{
+      icon: IconType;
+      label: string;
+    }>;
+  }>;
 };
 
-export default function Navbar({ data }: Navbar) {
+export default function Navbar({ data }: NavbarProps) {
   return (
-    <div className={style["navbar"]}>
-      <div className={style["navbar-logo"]}>
-        <div className={style["logo"]}>
+    <div className="w-full">
+      <div className="flex items-center justify-center p-3">
+        <div className="relative h-full w-[70px]">
           <Image
             src={Logo.src}
-            objectFit={"contain"}
+            alt="MovieLab Logo"
             width={100}
             height={50}
+            className="object-contain"
             priority
           />
         </div>
       </div>
-      {data?.map((item: any, index: any) => (
+      {data?.map((item, index) => (
         <div
-          className={style["menuitem"]}
-          key={index}>
-          {item.title ? <div className={style["menutitle"]}>{item.title}</div> : <></>}
-          {item.menu.map((btn: any, ix: any) => (
+          className="flex flex-col items-center gap-3 px-3 my-3"
+          key={index}
+        >
+          {item.title && (
+            <div className="text-[13px] font-semibold capitalize text-white px-3 py-1">
+              {item.title}
+            </div>
+          )}
+          {item.menu.map((btn, ix) => (
             <Button
               key={ix}
-              className={style["menubutton"]}
-              icon={
-                <Icon
-                  className={style["menubutton-icon"]}
-                  type={btn.icon}
-                />
-              }
-            />
+              variant="ghost"
+              className={cn(
+                "border-none rounded-md text-sm font-semibold",
+                "w-auto h-auto px-3 py-2",
+                "text-white bg-menu-light hover:bg-menu"
+              )}
+            >
+              <Icon
+                className="text-red"
+                type={btn.icon}
+                size={16}
+              />
+            </Button>
           ))}
         </div>
       ))}

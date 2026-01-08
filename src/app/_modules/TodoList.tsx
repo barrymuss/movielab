@@ -1,13 +1,12 @@
 "use client";
 
-import { usetrpc } from "@/useTRPC";
-
 export default function TodoList() {
-  const getTodos = usetrpc.getTodos.getTodos.useQuery();
+  // Demo component - tRPC removed
+  const todos = [10, 20, 30];
 
   return (
     <div>
-      <div>{JSON.stringify(getTodos.data)}</div>
+      <div>{JSON.stringify(todos)}</div>
     </div>
   );
 }

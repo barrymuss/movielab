@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  html,
+  body {
+    @apply p-0 m-0 text-white overflow-y-hidden;
+    font-family: var(--font-poppins), sans-serif;
+  }
+
+  /* Fluid Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply m-0;
+    font-family: var(--font-poppins), sans-serif;
+  }
+
+  h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 30px;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 28px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  h4 {
+    font-size: 21px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  h5 {
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  h6 {
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  @media (min-width: 425px) and (max-width: 1440px) {
+    h1 {
+      font-size: calc(32px + (64 - 32) * ((100vw - 425px) / (1440 - 425)));
+    }
+    h2 {
+      font-size: calc(30px + (50 - 30) * ((100vw - 425px) / (1440 - 425)));
+    }
+    h3 {
+      font-size: calc(28px + (35 - 28) * ((100vw - 425px) / (1440 - 425)));
+    }
+    h4 {
+      font-size: calc(21px + (28 - 21) * ((100vw - 425px) / (1440 - 425)));
+    }
+    h5 {
+      font-size: calc(16px + (21 - 16) * ((100vw - 425px) / (1440 - 425)));
+    }
+    h6 {
+      font-size: calc(14px + (15 - 14) * ((100vw - 425px) / (1440 - 425)));
+    }
+  }
+
+  @media (min-width: 1440px) {
+    h1 {
+      font-size: 64px;
+    }
+    h2 {
+      font-size: 50px;
+    }
+    h3 {
+      font-size: 35px;
+    }
+    h4 {
+      font-size: 28px;
+    }
+    h5 {
+      font-size: 21px;
+    }
+    h6 {
+      font-size: 15px;
+    }
+  }
+}
+
+@layer components {
+  /* Carousel custom styles */
+  .embla {
+    @apply rounded-[15px];
+  }
+
+  .embla__viewport {
+    @apply overflow-hidden rounded-[15px];
+  }
+
+  .embla__container {
+    @apply flex;
+  }
+
+  .embla__slide {
+    @apply flex-[0_0_100%] min-w-0;
+  }
+
+  /* Custom dot styles for carousel */
+  .embla__dots {
+    @apply flex gap-2 justify-center mt-4;
+  }
+
+  .embla__dot {
+    @apply w-2 h-2 rounded-full bg-white/30 transition-all;
+  }
+
+  .embla__dot--selected {
+    @apply bg-red;
+  }
+}
