@@ -1,23 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/lib/api-client";
 
 interface PopularMoviesParams {
   page: number;
 }
 
+// Menggunakan apiClient untuk fetching
 async function fetchPopularMovies(page: number) {
-  const response = await fetch(`/api/movies/popular?page=${page}`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch popular movies");
-  }
-  return response.json();
+  return apiClient.get("/movies/popular", { params: { page } });
 }
 
 async function fetchGenres() {
-  const response = await fetch("/api/movies/genres");
-  if (!response.ok) {
-    throw new Error("Failed to fetch genres");
-  }
-  return response.json();
+  return apiClient.get("/movies/genres");
 }
 
 export function usePopularMovies({ page }: PopularMoviesParams) {

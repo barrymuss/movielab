@@ -1,15 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/lib/api-client";
 
 interface PopularPersonsParams {
   page: number;
 }
 
+// Menggunakan apiClient untuk fetching
 async function fetchPopularPersons(page: number) {
-  const response = await fetch(`/api/persons/popular?page=${page}`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch popular persons");
-  }
-  return response.json();
+  return apiClient.get("/persons/popular", { params: { page } });
 }
 
 export function usePopularPersons({ page }: PopularPersonsParams) {
