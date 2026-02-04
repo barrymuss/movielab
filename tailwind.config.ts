@@ -10,45 +10,56 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#f2f2f7",
+        // Monochrome theme - Beige background, Blue accent
+        // Palette: #1B3C53, #234C6A, #456882, #D2C1B6
+        primary: {
+          DEFAULT: "#234C6A",
+          dark: "#1B3C53",
+          light: "#456882",
+        },
+        accent: {
+          DEFAULT: "#1B3C53",
+          light: "#234C6A",
+          muted: "#456882",
+        },
+        background: {
+          DEFAULT: "#D2C1B6",
+          dark: "#C4B3A7",
+          light: "#E5DCD6",
+          card: "#E0D3CA",
+        },
+        foreground: {
+          DEFAULT: "#1B3C53",
+          muted: "#456882",
+          light: "#234C6A",
+        },
+        surface: {
+          DEFAULT: "#E0D3CA",
+          dark: "#D2C1B6",
+          light: "#EDE6E1",
+        },
+        border: {
+          DEFAULT: "#C4B3A7",
+          light: "#D2C1B6",
+          dark: "#456882",
+        },
+        text: {
+          DEFAULT: "#1B3C53",
+          muted: "#456882",
+          light: "#234C6A",
+          inverse: "#E0D3CA",
+        },
+        // Action colors with blue theme
+        action: {
+          DEFAULT: "#234C6A",
+          hover: "#1B3C53",
+          active: "#456882",
+        },
+        // Keep some utility colors
+        success: "#2D5A45",
+        warning: "#8B6914",
+        error: "#8B3A3A",
         white: "#fff",
-        black: {
-          DEFAULT: "#212529",
-          light: "#44525f",
-          dark: "#171717",
-          background: "#1a1d21",
-        },
-        blue: {
-          DEFAULT: "#1990ff",
-          light: "#4b79be",
-          dark: "#0d5fbf",
-        },
-        green: {
-          DEFAULT: "#06d6a0",
-          light: "#39e1b9",
-          dark: "#05a07c",
-        },
-        red: {
-          DEFAULT: "#ff3131",
-          light: "#ff6464",
-          dark: "#cc2727",
-        },
-        yellow: {
-          DEFAULT: "#ffe66d",
-          light: "#ffef97",
-          dark: "#ccb857",
-        },
-        orange: {
-          DEFAULT: "#ff931e",
-          light: "#ffac51",
-          dark: "#cc7618",
-        },
-        border: "#495867",
-        menu: {
-          DEFAULT: "#17191c",
-          light: "#2a2d31",
-          dark: "#0d0e10",
-        },
       },
       fontSize: {
         "h1-min": ["32px", { lineHeight: "1.2", fontWeight: "600" }],

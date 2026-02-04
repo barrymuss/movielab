@@ -1,9 +1,23 @@
-import { Banner } from "@/modules";
+import {
+  Banner,
+  PopularMovie,
+  TopRatedMovie,
+  NowPlayingMovie,
+  UpcomingMovie,
+  PopularTvShows,
+  PopularPerson,
+} from "@/modules";
 
 export default function Home() {
   return (
-    <div className="w-full">
+    <>
       <Banner />
-    </div>
+      <PopularMovie />
+      <TopRatedMovie />
+      <NowPlayingMovie />
+      <UpcomingMovie />
+      <PopularTvShows />
+      <PopularPerson />
+    </>
   );
 }

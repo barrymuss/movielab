@@ -7,6 +7,10 @@
 @layer base {
   :root {
     --radius: 0.5rem;
+    --background: #D2C1B6;
+    --foreground: #1B3C53;
+    --accent: #234C6A;
+    --surface: #E0D3CA;
   }
 
   * {
@@ -15,7 +19,9 @@
 
   html,
   body {
-    @apply p-0 m-0 text-white overflow-y-hidden;
+    @apply p-0 m-0 overflow-x-hidden;
+    background-color: var(--background);
+    color: var(--foreground);
     font-family: var(--font-poppins), sans-serif;
   }
 
@@ -107,11 +113,11 @@
 @layer components {
   /* Carousel custom styles */
   .embla {
-    @apply rounded-[15px];
+    @apply relative;
   }
 
   .embla__viewport {
-    @apply overflow-hidden rounded-[15px];
+    @apply overflow-hidden;
   }
 
   .embla__container {
@@ -122,16 +128,17 @@
     @apply flex-[0_0_100%] min-w-0;
   }
 
-  /* Custom dot styles for carousel */
+  /* Clean dot styles */
   .embla__dots {
-    @apply flex gap-2 justify-center mt-4;
+    @apply absolute bottom-8 left-8 lg:left-16 flex gap-2 z-20;
   }
 
   .embla__dot {
-    @apply w-2 h-2 rounded-full bg-white/30 transition-all;
+    @apply h-1 w-6 rounded-full transition-all duration-300 cursor-pointer;
+    @apply bg-background-light/30 hover:bg-background-light/50;
   }
 
   .embla__dot--selected {
-    @apply bg-red;
+    @apply bg-background-light w-10;
   }
 }

@@ -26,8 +26,8 @@ export default function PosterCard({ children, data }: PosterCardProps) {
                 }
                 className={cn(
                   "w-[120px] h-[340px] object-cover rounded-md cursor-pointer",
-                  "transition-[width] duration-[800ms] ease-in-out",
-                  "hover:w-[500px]"
+                  "transition-[width] duration-700 ease-in-out",
+                  "hover:w-[500px]",
                 )}
               />
             </Grid.Col>

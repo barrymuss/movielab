@@ -5,9 +5,26 @@ interface PopularPersonsParams {
   page: number;
 }
 
+interface Person {
+  id: number;
+  name: string;
+  profile_path: string;
+  known_for_department: string;
+  popularity: number;
+}
+
+interface PersonsResponse {
+  page: number;
+  results: Person[];
+  total_pages: number;
+  total_results: number;
+}
+
 // Menggunakan apiClient untuk fetching
 async function fetchPopularPersons(page: number) {
-  return apiClient.get("/persons/popular", { params: { page } });
+  return apiClient.get<PersonsResponse>("/persons/popular", {
+    params: { page },
+  });
 }
 
 export function usePopularPersons({ page }: PopularPersonsParams) {

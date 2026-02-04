@@ -1,65 +1,53 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Icon, IconType } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 import Logo from "@/assets/Layer1.png";
 
-type NavbarProps = {
-  data?: Array<{
-    title?: string;
-    menu: Array<{
-      icon: IconType;
-      label: string;
-    }>;
-  }>;
+type NavLink = {
+  label: string;
+  href: string;
 };
 
-export default function Navbar({ data }: NavbarProps) {
+type NavbarProps = {
+  links?: NavLink[];
+};
+
+export default function Navbar({ links }: NavbarProps) {
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-center p-3">
-        <div className="relative h-full w-[70px]">
+    <div className="flex items-center gap-10">
+      {/* Logo */}
+      <Link href="/" className="flex-shrink-0">
+        <div className="relative w-[100px] h-[40px]">
           <Image
             src={Logo.src}
             alt="MovieLab Logo"
-            width={100}
-            height={50}
-            className="object-contain"
+            fill
+            className="object-contain brightness-0 invert"
             priority
           />
         </div>
+      </Link>
+
+      {/* Navigation Links */}
+      <div className="hidden md:flex items-center gap-1">
+        {links?.map((link, index) => (
+          <Link
+            key={index}
+            href={link.href}
+            className={cn(
+              "px-4 py-2 rounded-md",
+              "text-sm font-medium",
+              "text-background-light hover:text-white",
+              "hover:bg-white/10",
+              "transition-colors duration-200"
+            )}
+          >
+            {link.label}
+          </Link>
+        ))}
       </div>
-      {data?.map((item, index) => (
-        <div
-          className="flex flex-col items-center gap-3 px-3 my-3"
-          key={index}
-        >
-          {item.title && (
-            <div className="text-[13px] font-semibold capitalize text-white px-3 py-1">
-              {item.title}
-            </div>
-          )}
-          {item.menu.map((btn, ix) => (
-            <Button
-              key={ix}
-              variant="ghost"
-              className={cn(
-                "border-none rounded-md text-sm font-semibold",
-                "w-auto h-auto px-3 py-2",
-                "text-white bg-menu-light hover:bg-menu"
-              )}
-            >
-              <Icon
-                className="text-red"
-                type={btn.icon}
-                size={16}
-              />
-            </Button>
-          ))}
-        </div>
-      ))}
     </div>
   );
 }

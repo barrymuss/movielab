@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Navbar, Header } from "..";
 import { cn } from "@/lib/utils";
 
@@ -5,54 +8,52 @@ type LayoutProps = {
   children?: React.ReactNode;
 };
 
-const dataMenu = [
-  {
-    menu: [
-      {
-        icon: "home" as const,
-        label: "Home",
-      },
-      {
-        icon: "user" as const,
-        label: "User",
-      },
-    ],
-  },
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Movies", href: "/movies" },
+  { label: "TV Shows", href: "/tv" },
+  { label: "My List", href: "/my-list" },
 ];
 
 export default function Layout({ children }: LayoutProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div
-      className={cn(
-        "bg-black-light w-full h-screen",
-        "grid grid-rows-[55px_1fr] grid-cols-[auto_1fr]",
-        "gap-0"
-      )}
-      style={{
-        gridTemplateAreas: `
-          "nav header"
-          "nav content"
-        `,
-      }}
-    >
-      <div
-        className="bg-black p-3 border-b-2 border-menu-light"
-        style={{ gridArea: "header" }}
+    <div className={cn("bg-background w-full min-h-screen", "flex flex-col")}>
+      {/* Top Navigation Bar */}
+      <nav
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 w-full",
+          "transition-all duration-300",
+          isScrolled
+            ? "bg-accent/80 backdrop-blur-lg border-b border-white/10"
+            : "bg-transparent"
+        )}
       >
-        <Header />
-      </div>
-      <div
-        className="max-w-[90px] min-w-[90px] bg-black border-r-2 border-menu-light"
-        style={{ gridArea: "nav" }}
-      >
-        <Navbar data={dataMenu} />
-      </div>
-      <div
-        className="p-3 bg-black overflow-y-auto"
-        style={{ gridArea: "content" }}
-      >
-        {children}
-      </div>
+        <div className="max-w-[1920px] mx-auto px-6 lg:px-16 py-4">
+          <div className="flex items-center justify-between gap-8">
+            {/* Logo & Nav Links */}
+            <Navbar links={navLinks} />
+
+            {/* Search & User */}
+            <Header />
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="flex-1">
+        <div className="max-w-[1920px] mx-auto">{children}</div>
+      </main>
     </div>
   );
 }

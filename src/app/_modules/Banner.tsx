@@ -4,7 +4,6 @@ import { useReducer, useMemo } from "react";
 import { usePopularMovies, useGenres } from "@/hooks";
 import { Carousel } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +13,8 @@ interface Movie {
   overview: string;
   backdrop_path: string;
   genre_ids: number[];
+  vote_average: number;
+  release_date: string;
 }
 
 interface Genre {
@@ -28,7 +29,7 @@ export default function Banner() {
       page: 1,
       genre: [],
       movieData: [],
-    }
+    },
   );
 
   const { data: popularMoviesData } = usePopularMovies({ page: app.page });
@@ -43,95 +44,92 @@ export default function Banner() {
     setApp({ movieData: movies, genre: genres });
   }, [popularMoviesData, genreData]);
 
+  const getYear = (date: string) => (date ? new Date(date).getFullYear() : "");
+
+  const getGenreNames = (genreIds: number[]) =>
+    genreIds
+      .slice(0, 2)
+      .map((id) => app.genre.find((g: Genre) => g.id === id)?.name)
+      .filter(Boolean)
+      .join(" / ");
+
   return (
     <Carousel
-      className="border-none rounded-[15px] w-full"
+      className="border-none w-full"
       autoplay
-      autoplaySpeed={10000}
-      dotPosition="right"
+      autoplaySpeed={8000}
+      dotPosition="left"
     >
       {app.movieData.map((item: Movie) => (
-        <div key={item.id} className="rounded-[15px]">
-          <div
-            className={cn(
-              "relative flex items-end rounded-[15px]",
-              "h-[60vh] min-h-[400px] tablet:h-[450px] desktop:h-[500px]",
-              "w-full overflow-hidden"
-            )}
-          >
-            {/* Background Image */}
-            <div className="absolute inset-0 w-full h-full">
+        <div key={item.id}>
+          <div className="relative h-[80vh] min-h-[550px] w-full">
+            {/* Image */}
+            <div className="absolute inset-0">
               <img
                 src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
                 alt={item.title}
                 className="w-full h-full object-cover"
-                style={{
-                  filter: "contrast(100%) brightness(90%) grayscale(10%)",
-                }}
               />
-              {/* Gradient Overlay */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%)",
-                }}
-              />
+              {/* Single clean gradient */}
+              <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
             </div>
 
-            {/* Content Overlay */}
-            <div className="relative z-10 w-full px-8 pb-8">
-              {/* Title */}
-              <h2
-                className={cn(
-                  "text-[wheat] mb-3",
-                  "drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)]"
-                )}
-              >
-                {item.title}
-              </h2>
+            {/* Content */}
+            <div className="relative z-10 h-full flex items-center px-8 lg:px-16">
+              <div className="max-w-2xl space-y-5">
+                {/* Meta */}
+                <div className="flex items-center gap-3 text-sm text-background-light/70">
+                  <span className="flex items-center gap-1">
+                    <Icon
+                      type="star"
+                      size={14}
+                      className="text-background-light"
+                    />
+                    {item.vote_average?.toFixed(1)}
+                  </span>
+                  <span>•</span>
+                  <span>{getYear(item.release_date)}</span>
+                  <span>•</span>
+                  <span>{getGenreNames(item.genre_ids)}</span>
+                </div>
 
-              {/* Genre Tags */}
-              <div className="flex flex-wrap items-center gap-2 mb-4">
-                {item.genre_ids.map((genreId: number) => {
-                  const genre = app.genre.find((g: Genre) => g.id === genreId);
-                  return genre ? (
-                    <Badge key={genreId} variant="genre">
-                      {genre.name}
-                    </Badge>
-                  ) : null;
-                })}
-              </div>
+                {/* Title */}
+                <h1 className="text-background-light text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight">
+                  {item.title}
+                </h1>
 
-              {/* Overview */}
-              <p
-                className={cn(
-                  "text-white text-base",
-                  "drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)]",
-                  "max-w-[80%] tablet:max-w-[90%] lg:max-w-[60%]",
-                  "overflow-hidden line-clamp-3 mb-6"
-                )}
-              >
-                {item.overview}
-              </p>
+                {/* Overview */}
+                <p className="text-background-light/80 text-base leading-relaxed line-clamp-3">
+                  {item.overview}
+                </p>
 
-              {/* Buttons */}
-              <div className="flex items-center gap-3">
-                <Button
-                  size="lg"
-                  variant="danger"
-                  className="min-w-[120px]"
-                >
-                  <Icon type="play" size={18} className="text-white" />
-                  Trailer
-                </Button>
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="min-w-[120px] bg-white/20 hover:bg-white/30 backdrop-blur-sm border-white/40"
-                >
-                  <Icon type="info" size={18} />
-                  More info
-                </Button>
+                {/* Buttons */}
+                <div className="flex items-center gap-3 pt-3">
+                  <Button
+                    className={cn(
+                      "h-11 px-6 gap-2",
+                      "bg-background text-accent",
+                      "hover:bg-background-light",
+                      "transition-colors",
+                    )}
+                  >
+                    <Icon type="play" size={18} />
+                    Watch Trailer
+                  </Button>
+                  <Button
+                    className={cn(
+                      "h-11 px-6 gap-2",
+                      "bg-transparent text-background-light",
+                      "border border-background-light/30",
+                      "hover:bg-background-light/10",
+                      "transition-colors",
+                    )}
+                  >
+                    <Icon type="info" size={18} />
+                    Details
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

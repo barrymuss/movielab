@@ -1,21 +1,14 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
 import { cn } from "@/lib/utils";
-
-type CarouselApi = UseEmblaCarouselType[1];
-type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
-type CarouselOptions = UseCarouselParameters[0];
 
 interface CarouselProps {
   children: React.ReactNode;
   className?: string;
   autoplay?: boolean;
   autoplaySpeed?: number;
-  dotPosition?: "bottom" | "right";
-  opts?: CarouselOptions;
+  dotPosition?: "bottom" | "left";
 }
 
 export function Carousel({
@@ -24,82 +17,72 @@ export function Carousel({
   autoplay = false,
   autoplaySpeed = 5000,
   dotPosition = "bottom",
-  opts,
 }: CarouselProps) {
-  const plugins = autoplay
-    ? [Autoplay({ delay: autoplaySpeed, stopOnInteraction: false })]
-    : [];
+  const items = React.Children.toArray(children);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      ...opts,
-    },
-    plugins
-  );
-
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
-  const onSelect = useCallback((api: CarouselApi) => {
-    if (!api) return;
-    setSelectedIndex(api.selectedScrollSnap());
+  const goTo = useCallback((index: number) => {
+    setCurrentIndex(index);
   }, []);
 
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect(emblaApi);
-    setScrollSnaps(emblaApi.scrollSnapList());
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
-  }, [emblaApi, onSelect]);
+  const goNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % items.length);
+  }, [items.length]);
 
-  const scrollTo = useCallback(
-    (index: number) => emblaApi?.scrollTo(index),
-    [emblaApi]
-  );
+  // Autoplay
+  useEffect(() => {
+    if (!autoplay) return;
+
+    const interval = setInterval(goNext, autoplaySpeed);
+    return () => clearInterval(interval);
+  }, [autoplay, autoplaySpeed, goNext]);
 
   return (
-    <div className={cn("embla relative", className)}>
-      <div className="embla__viewport overflow-hidden rounded-[15px]" ref={emblaRef}>
-        <div className="embla__container flex">
-          {React.Children.map(children, (child) => (
-            <div className="embla__slide flex-[0_0_100%] min-w-0">
-              {child}
-            </div>
-          ))}
-        </div>
+    <div className={cn("relative w-full", className)}>
+      {/* Slides */}
+      <div className="relative w-full">
+        {items.map((child, index) => (
+          <div
+            key={index}
+            className={cn(
+              "w-full transition-opacity duration-700 ease-in-out",
+              index === currentIndex
+                ? "opacity-100 relative"
+                : "opacity-0 absolute inset-0"
+            )}
+          >
+            {child}
+          </div>
+        ))}
       </div>
 
-      {dotPosition === "bottom" && (
-        <div className="embla__dots flex gap-2 justify-center mt-4">
-          {scrollSnaps.map((_, index) => (
+      {/* Dots - Left position */}
+      {dotPosition === "left" && (
+        <div className="embla__dots">
+          {items.map((_, index) => (
             <button
               key={index}
               className={cn(
-                "embla__dot w-2 h-2 rounded-full transition-all cursor-pointer border-none",
-                index === selectedIndex
-                  ? "bg-red w-3"
-                  : "bg-white/30 hover:bg-white/50"
+                "embla__dot",
+                index === currentIndex && "embla__dot--selected"
               )}
-              onClick={() => scrollTo(index)}
+              onClick={() => goTo(index)}
             />
           ))}
         </div>
       )}
 
-      {dotPosition === "right" && (
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2">
-          {scrollSnaps.map((_, index) => (
+      {/* Dots - Bottom position */}
+      {dotPosition === "bottom" && (
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          {items.map((_, index) => (
             <button
               key={index}
               className={cn(
-                "embla__dot w-2 h-2 rounded-full transition-all cursor-pointer border-none",
-                index === selectedIndex
-                  ? "bg-red h-3"
-                  : "bg-white/30 hover:bg-white/50"
+                "embla__dot",
+                index === currentIndex && "embla__dot--selected"
               )}
-              onClick={() => scrollTo(index)}
+              onClick={() => goTo(index)}
             />
           ))}
         </div>

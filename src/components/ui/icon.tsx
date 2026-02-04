@@ -4,6 +4,13 @@ import {
   Play,
   Info,
   Star,
+  Search,
+  Bell,
+  Menu,
+  X,
+  ChevronDown,
+  Heart,
+  Bookmark,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +20,13 @@ const iconMap = {
   play: Play,
   info: Info,
   star: Star,
+  search: Search,
+  bell: Bell,
+  menu: Menu,
+  close: X,
+  chevronDown: ChevronDown,
+  heart: Heart,
+  bookmark: Bookmark,
 } as const;
 
 export type IconType = keyof typeof iconMap;

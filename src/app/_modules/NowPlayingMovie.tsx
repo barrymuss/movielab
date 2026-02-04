@@ -1,30 +1,30 @@
 "use client";
 
 import { useMemo, useReducer } from "react";
-import { usePopularMovies, useGenres } from "@/hooks";
+import { useNowPlayingMovies, useGenres } from "@/hooks";
 import { MediaSection } from "@/components/ui/media-section";
 
-export default function PopularMovie() {
+export default function NowPlayingMovie() {
   const [app, setApp] = useReducer(
     (state: any, updates: any) => ({ ...state, ...updates }),
     { page: 1, movieData: [], genres: [] }
   );
 
-  const { data: popularMoviesData } = usePopularMovies({ page: app.page });
+  const { data: nowPlayingData } = useNowPlayingMovies({ page: app.page });
   const { data: genreData } = useGenres();
 
   useMemo(() => {
-    if (!popularMoviesData?.results) return;
-    const movies = popularMoviesData.results.slice(0, 10);
+    if (!nowPlayingData?.results) return;
+    const movies = nowPlayingData.results.slice(0, 10);
     const genres = genreData?.genres || [];
     setApp({ movieData: movies, genres });
-  }, [popularMoviesData, genreData]);
+  }, [nowPlayingData, genreData]);
 
   if (app.movieData.length === 0) return null;
 
   return (
     <MediaSection
-      title="Popular Movies"
+      title="Now Playing"
       data={app.movieData}
       genres={app.genres}
     />
